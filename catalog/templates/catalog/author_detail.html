@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Author: {{ author.first_name }} {{author.last_name}}</h1>
+
+  {% if perms.catalog.credel %}
+  <li><a href="{% url 'author-update' author.id %}">Editar</a></li>
+  <li><a href="{% url 'author-delete' author.id %}">Eliminar</a></li>
+  {% endif %}
+
+  {% if author.date_of_birth %}
+  <p><strong>Birth:</strong> {{ author.date_of_birth }}</p>
+  {% endif %}
+
+  {% if author.date_of_death %}
+  <p><strong>Death:</strong> {{ author.date_of_death }}</p>
+  {% endif %}
+
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Filmografia</h4>
+
+    {% for copy in author.book_set.all %}
+      <hr>
+      <p><strong>Book:</strong> {{ copy.title }}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
